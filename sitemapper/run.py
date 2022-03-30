@@ -5,6 +5,7 @@ import asyncio
 import signal
 from datetime import datetime
 import prompt
+import sys
 
 
 def crawler(root_url, out_file, out_format='txt', maxtasks=100, exclude_urls=None):
@@ -29,9 +30,13 @@ def crawler(root_url, out_file, out_format='txt', maxtasks=100, exclude_urls=Non
 
 
 def main():
-    root_url = prompt.string("Enter url starts with 'http://' or 'https://' : ")
-    url = root_url.split('/')[2]
-    file_name = '{}_sitemap.txt'.format(url)
+    try:
+        root_url = prompt.string("Enter url starts with 'http://' or 'https://' : ")
+        url = root_url.split('/')[2]
+        file_name = '{}_sitemap.txt'.format(url)
+    except:
+        print('Enter the correct url')
+        sys.exit()
 
     time_start = datetime.now()
     crawler(root_url, out_file=file_name)
