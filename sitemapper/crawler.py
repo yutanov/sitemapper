@@ -116,7 +116,7 @@ class Crawler():
             if (resp.status == 200 and
                     ('text/html' in resp.headers.get('content-type'))):
                 data = (await resp.read()).decode('utf-8', 'replace')
-                urls = re.findall(r'(?i)href=["\']?([^\s"\'<>]+)', data)
+                urls = re.findall(r'(?i)href=["\']?([^\s"\'<>]+)["\']', data)
                 asyncio.Task(self.addurls([(u, url) for u in urls]))
 
             # even if we have no exception, we can mark url as good
